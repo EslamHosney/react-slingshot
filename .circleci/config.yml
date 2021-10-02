@@ -18,9 +18,41 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
 
+  build:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "build lint"
+          command: "npm run lint"
+  test:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "test test"
+          command: "npm run test"
+  analyze:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "analyze audit"
+          command: "npm audit"
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   say-hello-workflow:
     jobs:
       - say-hello
+      - build
+      - test:
+          requires:
+            - build
+      - analyze:
+          requires:
+            - test
