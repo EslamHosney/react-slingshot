@@ -20,23 +20,25 @@ jobs:
 
   build:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/node:13.8.0
     steps:
       - checkout
+      - run: npm i
       - run:
           name: "build lint"
           command: "npm run lint"
   test:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
+      - run: npm i
           name: "test test"
           command: "npm run test"
   analyze:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - run:
