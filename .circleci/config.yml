@@ -32,8 +32,8 @@ jobs:
       - image: circleci/node:13.8.0
     steps:
       - checkout
-      - run:
       - run: npm i
+      - run:
           name: "test test"
           command: "npm run test"
   analyze:
